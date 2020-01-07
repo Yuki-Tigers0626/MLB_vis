@@ -1,5 +1,5 @@
 output$table <- DT::renderDataTable({
-  data.frame(
+  DT <- data.frame(
     dplyr::bind_rows(
       data.frame(
         stand = "both", 
@@ -55,4 +55,7 @@ output$table <- DT::renderDataTable({
     )
   ) %>% 
   dplyr::rename(batter_stand = stand)
+  colnames(DT) <- c("batter_stand", "pitch_name", "Frequency", "Pitch%", "Velocity", "Max", "Min", "Spin-Rate", 
+                    "Spin-Direction/Tilt", "Gyro-Degree", "Release-Extension", "Release-Side", "Release-Height")
+  return(DT)
 })
