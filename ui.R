@@ -1,5 +1,3 @@
-setwd("~")
-
 require(baseballr)
 require(data.table)
 require(DT)

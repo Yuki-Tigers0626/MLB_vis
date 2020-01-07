@@ -2,11 +2,11 @@
 function(input, output, session) {
     # データベース
     Database <- reactive({
-        read_rds("../../BaseballR/Statcast2018.rds")
+        read_rds("Data/Statcast2018.rds")
     })
     
     PlayerNames <- reactive({
-        read_rds("../../BaseballR/PlayerNames.rds") %>% 
+        read_rds("Data/PlayerNames.rds") %>% 
             dplyr::arrange(Name)
     })
     
