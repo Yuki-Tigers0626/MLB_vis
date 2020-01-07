@@ -1,11 +1,10 @@
-require(baseballr)
-require(data.table)
-require(DT)
-require(ggExtra)
-require(rgl)
-require(shiny)
-require(shinydashboard)
-require(tidyverse)
+require("data.table")
+require("DT")
+require("ggExtra")
+require("rgl")
+require("shiny")
+require("shinydashboard")
+require("tidyverse")
 
 # https://github.com/Tychobra/shiny-insurance-examples/tree/master/basic-insurer-dashboard
 
