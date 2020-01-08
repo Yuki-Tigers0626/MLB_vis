@@ -15,7 +15,9 @@ output$table <- DT::renderDataTable({
                            `Gyro-Degree` = NA, 
                            `Release-Extension` = as.numeric(sprintf("%.2f", mean(release_extension, na.rm=T))), 
                            `Release-Side` = as.numeric(sprintf("%.2f", mean(release_pos_x, na.rm=T))), 
-                           `Release-Height` = as.numeric(sprintf("%.2f", mean(release_pos_z, na.rm=T)))) %>% 
+                           `Release-Height` = as.numeric(sprintf("%.2f", mean(release_pos_z, na.rm=T))), 
+                           `Horizontal-Mov` = as.numeric(sprintf("%.2f", mean(pfx_x, na.rm=T))), 
+                           `Vertical-Mov` = as.numeric(sprintf("%.2f", mean(pfx_z, na.rm=T)))) %>% 
           dplyr::arrange(desc(Frequency))
       ), 
       database() %>% 
@@ -32,7 +34,9 @@ output$table <- DT::renderDataTable({
                          `Gyro-Degree` = NA, 
                          `Release-Extension` = as.numeric(sprintf("%.2f", mean(release_extension, na.rm=T))), 
                          `Release-Side` = as.numeric(sprintf("%.2f", mean(release_pos_x, na.rm=T))), 
-                         `Release-Height` = as.numeric(sprintf("%.2f", mean(release_pos_z, na.rm=T)))) %>% 
+                         `Release-Height` = as.numeric(sprintf("%.2f", mean(release_pos_z, na.rm=T))), 
+                         `Horizontal-Mov` = as.numeric(sprintf("%.2f", mean(pfx_x, na.rm=T))), 
+                         `Vertical-Mov` = as.numeric(sprintf("%.2f", mean(pfx_z, na.rm=T)))) %>% 
         dplyr::arrange(desc(Frequency)) %>% 
         data.frame(), 
       database() %>% 
@@ -49,13 +53,16 @@ output$table <- DT::renderDataTable({
                          `Gyro-Degree` = NA, 
                          `Release-Extension` = as.numeric(sprintf("%.2f", mean(release_extension, na.rm=T))), 
                          `Release-Side` = as.numeric(sprintf("%.2f", mean(release_pos_x, na.rm=T))), 
-                         `Release-Height` = as.numeric(sprintf("%.2f", mean(release_pos_z, na.rm=T)))) %>% 
+                         `Release-Height` = as.numeric(sprintf("%.2f", mean(release_pos_z, na.rm=T))), 
+                         `Horizontal-Mov` = as.numeric(sprintf("%.2f", mean(pfx_x, na.rm=T))), 
+                         `Vertical-Mov` = as.numeric(sprintf("%.2f", mean(pfx_z, na.rm=T)))) %>% 
         dplyr::arrange(desc(Frequency)) %>% 
         data.frame()
     )
   ) %>% 
   dplyr::rename(batter_stand = stand)
   colnames(DT) <- c("batter_stand", "pitch_name", "Frequency", "Pitch%", "Velocity", "Max", "Min", "Spin-Rate", 
-                    "Spin-Direction/Tilt", "Gyro-Degree", "Release-Extension", "Release-Side", "Release-Height")
+                    "Spin-Direction/Tilt", "Gyro-Degree", "Release-Extension", "Release-Side", "Release-Height", 
+                    "Horizontal-Mov", "Vertical-Mov")
   return(DT)
 })

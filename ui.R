@@ -20,7 +20,7 @@ sidebar <- dashboardSidebar(
     radioButtons("unit", "長さ単位：", 
                  choices =  c("cm", "ft"), selected = "cm"), 
     radioButtons("year", "年度：", 
-                 choices =  c(2018, 2019), selected = 2018), 
+                 choices =  c(2018, 2019), selected = 2019), 
     sidebarMenu(
         menuItem("Dashboard", tabName="dashboard", icon=icon("baseball-ball")), 
         menuItem("リリース速度と体感速度", tabName="type_speed", icon=icon("dashboard")), 

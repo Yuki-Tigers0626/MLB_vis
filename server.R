@@ -5,7 +5,7 @@ function(input, output, session) {
     
     # データベース
     DataBase <- reactive({
-        read_rds("Data/Statcast2018.rds")
+        read_rds("Data/StatcastData.rds")
     })
     
     Database <- reactive({
