@@ -33,7 +33,7 @@ function(input, output, session) {
     })
     
     PlayerNames <- reactive({
-        DataBase() %>% 
+        Database() %>% 
             dplyr::select(pitcher) %>% 
             dplyr::rename(key_mlbam = pitcher) %>% 
             dplyr::distinct(key_mlbam) %>% 
@@ -44,7 +44,7 @@ function(input, output, session) {
     
     output$selectPlayer <- renderUI({
         selectInput(inputId = "Name", 
-                    label = "Choose: ", 
+                    label = "投手選択: ", 
                     choices = PlayerNames() %>% 
                         # dplyr::filter(key_mlbam%in%c(506433, 547888)) %>%
                         dplyr::select(Name))
