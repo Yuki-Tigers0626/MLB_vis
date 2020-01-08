@@ -5,7 +5,7 @@ function(input, output, session) {
     
     # データベース
     DataBase <- reactive({
-        do.call(rbind, lapply(read_csv("Data/Pitcher_files.csv", col_names=F), read_csv))
+        bind_rows(read_csv("Pitcher/2019_CKershaw.csv"))
     })
     
     Database <- reactive({
