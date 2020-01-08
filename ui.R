@@ -1,4 +1,4 @@
-# require("cowplot")
+require("cowplot")
 require("data.table")
 require("DT")
 require("ggExtra")
