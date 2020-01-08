@@ -13,7 +13,7 @@ output$table <- DT::renderDataTable({
                            `Spin-Rate` = as.numeric(sprintf("%.2f", mean(release_spin_rate, na.rm=T))), 
                            `Spin-Direction/Tilt` = NA, 
                            `Gyro-Degree` = NA, 
-                           `Release-Extension` = as.numeric(sprintf("%.2f", mean(release_extension, na.rm=T))), 
+                           `Release-Extension` = as.numeric(sprintf("%.2f", mean(release_pos_y, na.rm=T))), 
                            `Release-Side` = as.numeric(sprintf("%.2f", mean(release_pos_x, na.rm=T))), 
                            `Release-Height` = as.numeric(sprintf("%.2f", mean(release_pos_z, na.rm=T)))) %>% 
           dplyr::arrange(desc(Frequency))
@@ -30,7 +30,7 @@ output$table <- DT::renderDataTable({
                          `Spin-Rate` = as.numeric(sprintf("%.2f", mean(release_spin_rate, na.rm=T))), 
                          `Spin-Direction/Tilt` = NA, 
                          `Gyro-Degree` = NA, 
-                         `Release-Extension` = as.numeric(sprintf("%.2f", mean(release_extension, na.rm=T))), 
+                         `Release-Extension` = as.numeric(sprintf("%.2f", mean(release_pos_y, na.rm=T))), 
                          `Release-Side` = as.numeric(sprintf("%.2f", mean(release_pos_x, na.rm=T))), 
                          `Release-Height` = as.numeric(sprintf("%.2f", mean(release_pos_z, na.rm=T)))) %>% 
         dplyr::arrange(desc(Frequency)) %>% 
@@ -47,7 +47,7 @@ output$table <- DT::renderDataTable({
                          `Spin-Rate` = as.numeric(sprintf("%.2f", mean(release_spin_rate, na.rm=T))), 
                          `Spin-Direction/Tilt` = NA, 
                          `Gyro-Degree` = NA, 
-                         `Release-Extension` = as.numeric(sprintf("%.2f", mean(release_extension, na.rm=T))), 
+                         `Release-Extension` = as.numeric(sprintf("%.2f", mean(release_pos_y, na.rm=T))), 
                          `Release-Side` = as.numeric(sprintf("%.2f", mean(release_pos_x, na.rm=T))), 
                          `Release-Height` = as.numeric(sprintf("%.2f", mean(release_pos_z, na.rm=T)))) %>% 
         dplyr::arrange(desc(Frequency)) %>% 

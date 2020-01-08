@@ -3,8 +3,8 @@ output$release_pos_3d_plot <- renderRglwidget({
   rgl.bg(color=c("white", "black"))
   plot3d(x = database()$release_pos_x, 
          y = database()$release_pos_z, 
-         z = database()$release_extension, 
+         z = database()$release_pos_y, 
          col = rainbow(length(unique(database()$pitch_name)))[factor(database()$pitch_name)], 
-         xlab = "release_pos_x", ylab = "release_pos_z", zlab = "release_extension")
+         xlab = "release_pos_x", ylab = "release_pos_z", zlab = "release_pos_y")
   rglwidget()
 })
