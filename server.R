@@ -5,7 +5,7 @@ function(input, output, session) {
     
     # データベース
     DataBase <- reactive({
-        bind_rows(read_csv("Pitcher/2019_CKershaw.csv"))
+        read_rds("Data/Statcast.rds")
     })
     
     Database <- reactive({
