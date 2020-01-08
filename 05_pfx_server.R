@@ -1,41 +1,113 @@
-# require("cowplot")
-
 output$pfx_Both_plot <- renderPlot({
-  g <- database() %>% 
-    ggplot(aes(x=pfx_x, y=pfx_z, color=pitch_name)) + 
+  g <- ggplot() + 
     geom_vline(xintercept=0) + geom_hline(yintercept=0) + 
-    geom_point(size=.5) + 
-    stat_ellipse(aes(fill = pitch_name), geom="polygon", level=.95, alpha=.2) + 
     labs(title=as.character(player_Name()), subtitle="通算変化量プロット") + 
     xlim(min(database()$pfx_x)*1.1, max(database()$pfx_x)*1.1) + 
-    ylim(min(database()$pfx_z)*1.1, max(database()$pfx_z)*1.1)
+    ylim(min(database()$pfx_z)*1.1, max(database()$pfx_z)*1.1) + 
+    theme_cowplot(16)
+  
+  if (input$plot_add_pfx==1) {
+    g <- g + 
+      geom_point(data = database(), 
+                 mapping = aes(x=pfx_x, y=pfx_z, color=pitch_name), size=2)
+  }
+  
+  if (input$plot_add_pfx==2) {
+    g <- g + 
+      stat_ellipse(data = database(), 
+                   mapping = aes(x=pfx_x, y=pfx_z, color=pitch_name, fill = pitch_name), 
+                   geom="polygon", level=.8, alpha=.2)
+  }
+  
+  if (input$plot_add_pfx==3) {
+    g <- g + 
+      geom_point(data = database() %>% 
+                   dplyr::mutate(n = n()) %>% 
+                   dplyr::group_by(pitch_name) %>% 
+                   dplyr::summarise(pfx_x = mean(pfx_x, na.rm=T), 
+                                    pfx_z = mean(pfx_z, na.rm=T),  
+                                    `pitch%` = n()/mean(n)*100), 
+                 mapping = aes(x=pfx_x, y=pfx_z, color=pitch_name, size=`pitch%`), 
+                 alpha=.5) + 
+      scale_size(range = c(3, 10))
+  }
   print(g)
 })
 
 output$pfx_L_plot <- renderPlot({
-  g <- database() %>% 
-    dplyr::filter(stand=="L") %>% 
-    ggplot(aes(x=pfx_x, y=pfx_z, color=pitch_name)) + 
+  g <- ggplot() + 
     geom_vline(xintercept=0) + geom_hline(yintercept=0) + 
-    geom_point(size=.5) + 
-    stat_ellipse(aes(fill = pitch_name), geom="polygon", level=.95, alpha=.2) + 
     labs(title=as.character(player_Name()), subtitle="対左変化量プロット") + 
     xlim(min(database()$pfx_x)*1.1, max(database()$pfx_x)*1.1) + 
-    ylim(min(database()$pfx_z)*1.1, max(database()$pfx_z)*1.1)
+    ylim(min(database()$pfx_z)*1.1, max(database()$pfx_z)*1.1) + 
+    theme_cowplot(16)
+  
+  if (input$plot_add_pfx==1) {
+    g <- g + 
+      geom_point(data = database() %>% 
+                   dplyr::filter(stand=="L"), 
+                 mapping = aes(x=pfx_x, y=pfx_z, color=pitch_name), size=2)
+  }
+  
+  if (input$plot_add_pfx==2) {
+    g <- g + 
+      stat_ellipse(data = database() %>% 
+                     dplyr::filter(stand=="L"), 
+                   mapping = aes(x=pfx_x, y=pfx_z, color=pitch_name, fill = pitch_name), 
+                   geom="polygon", level=.8, alpha=.2)
+  }
+  
+  if (input$plot_add_pfx==3) {
+    g <- g + 
+      geom_point(data = database() %>% 
+                   dplyr::filter(stand=="L") %>% 
+                   dplyr::mutate(n = n()) %>% 
+                   dplyr::group_by(pitch_name) %>% 
+                   dplyr::summarise(pfx_x = mean(pfx_x, na.rm=T), 
+                                    pfx_z = mean(pfx_z, na.rm=T), 
+                                    `pitch%` = n()/mean(n)*100), 
+                 mapping = aes(x=pfx_x, y=pfx_z, color=pitch_name, size=`pitch%`), 
+                 alpha=.5) + 
+      scale_size(range = c(3, 10))
+  }
   print(g)
 })
 
 output$pfx_R_plot <- renderPlot({
-  g <- database() %>% 
-    dplyr::filter(stand=="R") %>% 
-    ggplot(aes(x=pfx_x, y=pfx_z, color=pitch_name)) + 
+  g <- ggplot() + 
     geom_vline(xintercept=0) + geom_hline(yintercept=0) + 
-    geom_point(size=.5) + 
-    stat_ellipse(aes(fill = pitch_name), geom="polygon", level=.95, alpha=.2) + 
     labs(title=as.character(player_Name()), subtitle="対右変化量プロット") + 
     xlim(min(database()$pfx_x)*1.1, max(database()$pfx_x)*1.1) + 
-    ylim(min(database()$pfx_z)*1.1, max(database()$pfx_z)*1.1)
+    ylim(min(database()$pfx_z)*1.1, max(database()$pfx_z)*1.1) + 
+    theme_cowplot(16)
+  
+  if (input$plot_add_pfx==1) {
+    g <- g + 
+      geom_point(data = database() %>% 
+                   dplyr::filter(stand=="R"), 
+                 mapping = aes(x=pfx_x, y=pfx_z, color=pitch_name), size=2)
+  }
+  
+  if (input$plot_add_pfx==2) {
+    g <- g + 
+      stat_ellipse(data = database() %>% 
+                     dplyr::filter(stand=="R"), 
+                   mapping = aes(x=pfx_x, y=pfx_z, color=pitch_name, fill = pitch_name), 
+                   geom="polygon", level=.8, alpha=.2)
+  }
+  
+  if (input$plot_add_pfx==3) {
+    g <- g + 
+      geom_point(data = database() %>% 
+                   dplyr::filter(stand=="R") %>% 
+                   dplyr::mutate(n = n()) %>% 
+                   dplyr::group_by(pitch_name) %>% 
+                   dplyr::summarise(pfx_x = mean(pfx_x, na.rm=T), 
+                                    pfx_z = mean(pfx_z, na.rm=T), 
+                                    `pitch%` = n()/mean(n)*100), 
+                 mapping = aes(x=pfx_x, y=pfx_z, color=pitch_name, size=`pitch%`), 
+                 alpha=.5) + 
+      scale_size(range = c(3, 10))
+  }
   print(g)
 })
-
-# detach("package:cowplot", unload = TRUE)

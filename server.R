@@ -47,7 +47,8 @@ function(input, output, session) {
                     label = "投手選択: ", 
                     choices = PlayerNames() %>% 
                         # dplyr::filter(key_mlbam%in%c(506433, 547888)) %>%
-                        dplyr::select(Name))
+                        dplyr::select(Name), 
+                    selected = "Yu Darvish")
     })
     
     player_Name <- reactive({
