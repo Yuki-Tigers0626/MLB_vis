@@ -9,7 +9,7 @@ output$release_pos_xz_plot <- renderPlot({
 
 output$release_pos_xy_plot <- renderPlot({
   g <- database() %>% 
-    ggplot(aes(x=release_pos_x, y=release_pos_y, color=pitch_name)) + 
+    ggplot(aes(x=release_pos_x, y=release_extension, color=pitch_name)) + 
     stat_ellipse(aes(fill = pitch_name), geom="polygon", level=.95, alpha=.2) + 
     geom_point() + 
     labs(title=player_Name(), subtitle="リリースポイント(x_y)") 
@@ -18,7 +18,7 @@ output$release_pos_xy_plot <- renderPlot({
   
 output$release_pos_yz_plot <- renderPlot({
   g <- database() %>% 
-    ggplot(aes(x=release_pos_z, y=release_pos_y, color=pitch_name)) + 
+    ggplot(aes(x=release_pos_z, y=release_extension, color=pitch_name)) + 
     stat_ellipse(aes(fill = pitch_name), geom="polygon", level=.95, alpha=.2) + 
     geom_point() + 
     labs(title=player_Name(), subtitle="リリースポイント(y-z)") 

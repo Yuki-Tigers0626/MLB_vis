@@ -1,0 +1,10 @@
+# install.packages("data.table")
+# install.packages("DT")
+# install.packages("ggExtra")
+# install.packages("rgl")
+# install.packages("shiny")
+# install.packages("shinydashboard")
+# install.packages("tidyverse")
+
+require(shiny)
+runGitHub("MLB_vis", "Yuki-Tigers0626")
