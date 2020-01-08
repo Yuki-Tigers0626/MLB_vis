@@ -1,3 +1,5 @@
+# require("cowplot")
+
 output$pfx_Both_plot <- renderPlot({
   g <- database() %>% 
     ggplot(aes(x=pfx_x, y=pfx_z, color=pitch_name)) + 
@@ -35,3 +37,5 @@ output$pfx_R_plot <- renderPlot({
     ylim(min(database()$pfx_z)*1.1, max(database()$pfx_z)*1.1)
   print(g)
 })
+
+# detach("package:cowplot", unload = TRUE)
