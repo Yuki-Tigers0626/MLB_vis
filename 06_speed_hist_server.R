@@ -16,11 +16,11 @@ output$select_pitch_name2 <- renderUI({
 
 speed_hist_xlim1 <- reactive({
   if (input$speed_hist_select==0) {
-    database() %>% 
+    Database2() %>% 
       dplyr::filter(pitch_name%in%c(input$pitch_name1)) %>% 
       dplyr::select(effective_speed)
   } else {
-    database() %>% 
+    Database2() %>% 
       dplyr::filter(pitch_name%in%c(input$pitch_name1, input$pitch_name2)) %>% 
       dplyr::select(effective_speed)
   }
@@ -28,11 +28,11 @@ speed_hist_xlim1 <- reactive({
 
 speed_hist_xlim2 <- reactive({
   if (input$speed_hist_select==0) {
-    database() %>% 
+    Database2() %>% 
       dplyr::filter(pitch_name%in%c(input$pitch_name2)) %>% 
       dplyr::select(effective_speed)
   } else {
-    database() %>% 
+    Database2() %>% 
       dplyr::filter(pitch_name%in%c(input$pitch_name1, input$pitch_name2)) %>% 
       dplyr::select(effective_speed)
   }

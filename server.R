@@ -65,7 +65,6 @@ function(input, output, session) {
     
     Database2 <- reactive({
         Database() %>% 
-            dplyr::mutate(tmp = as.integer(game_date)) %>% 
             dplyr::filter(pitcher==player_Id(), 
                           pitch_name!="")
     })
