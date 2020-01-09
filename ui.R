@@ -34,6 +34,12 @@ sidebar <- dashboardSidebar(
     selectInput("year", "年度：", 
                 choices = c("2018"=2018, "2019"=2019), selected = 2019), 
     uiOutput("DateRange"), 
+    selectInput("runner", "塁状況：", 
+                choices = c("全状況"=0, 
+                            "走者なし"=1, "一塁"=2, "得点圏"=3, 
+                            "一塁存在"=4, "二塁存在"=5, "三塁存在"=6, 
+                            "二塁"=7, "三塁"=8, "一二塁"=9, "一三塁"=10, "二三塁"=11, "満塁"=12), 
+                selected = 0), 
     sidebarMenu(
         menuItem("Dashboard", tabName="dashboard", icon=icon("baseball-ball")), 
         menuItem("リリース速度と体感速度", tabName="type_speed", icon=icon("dashboard")), 

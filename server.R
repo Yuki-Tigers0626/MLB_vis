@@ -102,6 +102,46 @@ function(input, output, session) {
                           tmp<=as.integer(input$date_range[2])) %>% 
             dplyr::select(-tmp)
         
+        if (input$runner==0) {
+            db <- db
+        } else if (input$runner==1) {
+            db <- db %>% 
+                dplyr::filter(is.na(on_1b), is.na(on_2b), is.na(on_3b))
+        } else if (input$runner==2) {
+            db <- db %>% 
+                dplyr::filter(!is.na(on_1b), is.na(on_2b), is.na(on_3b))
+        } else if (input$runner==3) {
+            db <- db %>% 
+                dplyr::filter(!is.na(on_2b)|!is.na(on_3b))
+        } else if (input$runner==4) {
+            db <- db %>% 
+                dplyr::filter(!is.na(on_1b))
+        } else if (input$runner==5) {
+            db <- db %>% 
+                dplyr::filter(!is.na(on_2b))
+        } else if (input$runner==6) {
+            db <- db %>% 
+                dplyr::filter(!is.na(on_3b))
+        } else if (input$runner==7) {
+            db <- db %>% 
+                dplyr::filter(is.na(on_1b), !is.na(on_2b), is.na(on_3b))
+        } else if (input$runner==8) {
+            db <- db %>% 
+                dplyr::filter(is.na(on_1b), is.na(on_2b), !is.na(on_3b))
+        } else if (input$runner==9) {
+            db <- db %>% 
+                dplyr::filter(!is.na(on_1b), !is.na(on_2b), is.na(on_3b))
+        } else if (input$runner==10) {
+            db <- db %>% 
+                dplyr::filter(!is.na(on_1b), is.na(on_2b), !is.na(on_3b))
+        } else if (input$runner==11) {
+            db <- db %>% 
+                dplyr::filter(is.na(on_1b), !is.na(on_2b), !is.na(on_3b))
+        } else if (input$runner==12) {
+            db <- db %>% 
+                dplyr::filter(!is.na(on_1b), !is.na(on_2b), !is.na(on_3b))
+        }
+        
         return(db)
     })
     
