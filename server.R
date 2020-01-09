@@ -63,9 +63,46 @@ function(input, output, session) {
             dplyr::select(key_mlbam) %>% as.integer()
     })
     
-    database <- reactive({
+    Database2 <- reactive({
         Database() %>% 
-            dplyr::filter(pitcher==player_Id(), pitch_name!="")
+            dplyr::mutate(tmp = as.integer(game_date)) %>% 
+            dplyr::filter(pitcher==player_Id(), 
+                          pitch_name!="")
+    })
+    
+    Date_Range_max <- reactive({
+        Database2() %>% 
+            dplyr::select(game_date) %>% 
+            dplyr::group_by() %>% 
+            dplyr::summarise(max(game_date)) %>% 
+            as.integer()
+    })
+    
+    Date_Range_min <- reactive({
+        Database2() %>% 
+            dplyr::select(game_date) %>% 
+            dplyr::group_by() %>% 
+            dplyr::summarise(min(game_date)) %>% 
+            as.integer()
+    })
+    
+    output$DateRange <- renderUI({
+        dateRangeInput(inputId = "date_range", 
+                       label = "期間選択: ", 
+                       start =  as.Date(Date_Range_min(), origin="1970-01-01"), 
+                       end = as.Date(Date_Range_max(), origin="1970-01-01"), 
+                       min = as.Date(Date_Range_min(), origin="1970-01-01"), 
+                       max = as.Date(Date_Range_max(), origin="1970-01-01"))
+    })
+    
+    database <- reactive({
+        db <- Database2() %>% 
+            dplyr::mutate(tmp = as.integer(game_date)) %>% 
+            dplyr::filter(tmp>=as.integer(input$date_range[1]), 
+                          tmp<=as.integer(input$date_range[2])) %>% 
+            dplyr::select(-tmp)
+        
+        return(db)
     })
     
     source("00_dashboard_server.R", local=T, encoding="UTF-8") 

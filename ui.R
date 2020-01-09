@@ -33,6 +33,7 @@ sidebar <- dashboardSidebar(
                 choices = c("cm", "ft"), selected = "cm"), 
     selectInput("year", "年度：", 
                 choices = c("2018"=2018, "2019"=2019), selected = 2019), 
+    uiOutput("DateRange"), 
     sidebarMenu(
         menuItem("Dashboard", tabName="dashboard", icon=icon("baseball-ball")), 
         menuItem("リリース速度と体感速度", tabName="type_speed", icon=icon("dashboard")), 
