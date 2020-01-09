@@ -1,8 +1,8 @@
-output$table <- DT::renderDataTable({
+datatable <- reactive({
   DT <- data.frame(
     dplyr::bind_rows(
       data.frame(
-        stand = "both", 
+        stand = "Both", 
         database() %>% 
           dplyr::group_by(pitch_name) %>% 
           dplyr::summarise(Frequency = n(), 
@@ -60,9 +60,58 @@ output$table <- DT::renderDataTable({
         data.frame()
     )
   ) %>% 
-  dplyr::rename(batter_stand = stand)
+    dplyr::rename(batter_stand = stand)
   colnames(DT) <- c("batter_stand", "pitch_name", "Frequency", "Pitch%", "Velocity", "Max", "Min", "Spin-Rate", 
                     "Spin-Direction/Tilt", "Gyro-Degree", "Release-Extension", "Release-Side", "Release-Height", 
                     "Horizontal-Mov", "Vertical-Mov")
+  return(DT)
+})
+
+datatable_difference_LR <- reactive({
+  DT_Both <- datatable() %>% 
+    dplyr::filter(batter_stand=="Both") %>% 
+    dplyr::select(-batter_stand)
+  DT_Left <- datatable() %>% 
+    dplyr::filter(batter_stand=="L") %>% 
+    dplyr::select(-batter_stand)
+  DT_Right <- datatable() %>% 
+    dplyr::filter(batter_stand=="R") %>% 
+    dplyr::select(-batter_stand)
+  
+  if (input$difference_LR==0) {
+    DT <- dplyr::left_join(DT_Both, DT_Left, by="pitch_name")
+  } else if (input$difference_LR==1) {
+    DT <- dplyr::left_join(DT_Both, DT_Right, by="pitch_name")
+  } else if (input$difference_LR==2) {
+    DT <- dplyr::left_join(DT_Left, DT_Right, by="pitch_name")
+  }
+})
+
+output$table <- DT::renderDataTable({
+  return(datatable())
+})
+
+output$difference_LR <- DT::renderDataTable({
+  DT <- datatable_difference_LR() %>%
+    dplyr::mutate(Frequency = as.numeric(sprintf("%.2f", Frequency.x-Frequency.y)),
+                  `Pitch%` = as.numeric(sprintf("%.2f", `Pitch%.x`-`Pitch%.y`)),
+                  Velocity = as.numeric(sprintf("%.2f", Velocity.x-Velocity.y)),
+                  Max = as.numeric(sprintf("%.2f", Max.x-Max.y)), 
+                  Min = as.numeric(sprintf("%.2f", Min.x-Min.y)), 
+                  `Spin-Rate` = as.numeric(sprintf("%.2f", `Spin-Rate.x`-`Spin-Rate.y`)), 
+                  `Spin-Direction/Tilt` = as.numeric(sprintf("%.2f", `Spin-Direction/Tilt.x`-`Spin-Direction/Tilt.y`)), 
+                  `Gyro-Degree` = as.numeric(sprintf("%.2f", `Gyro-Degree.x`-`Gyro-Degree.y`)), 
+                  `Release-Extension` = as.numeric(sprintf("%.2f", `Release-Extension.x`-`Release-Extension.y`)), 
+                  `Release-Side` = as.numeric(sprintf("%.2f", `Release-Side.x`-`Release-Side.y`)), 
+                  `Release-Height` = as.numeric(sprintf("%.2f", `Release-Height.x`-`Release-Height.y`)), 
+                  `Horizontal-Mov` = as.numeric(sprintf("%.2f", `Horizontal-Mov.x`-`Horizontal-Mov.y`)), 
+                  `Vertical-Mov` = as.numeric(sprintf("%.2f", `Vertical-Mov.x`-`Vertical-Mov.y`))) %>%
+    dplyr::select(pitch_name, Frequency, `Pitch%`, Velocity, Max, Min, `Spin-Rate`,
+                  `Spin-Direction/Tilt`, `Gyro-Degree`, `Release-Extension`, `Release-Side`, `Release-Height`,
+                  `Horizontal-Mov`, `Vertical-Mov`)
+  colnames(DT) <- c("pitch_name", "Frequency", "Pitch%", "Velocity", "Max", "Min", "Spin-Rate",
+                  "Spin-Direction/Tilt", "Gyro-Degree", "Release-Extension", "Release-Side", "Release-Height",
+                  "Horizontal-Mov", "Vertical-Mov")
+  
   return(DT)
 })

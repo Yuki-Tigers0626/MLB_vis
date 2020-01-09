@@ -73,5 +73,6 @@ function(input, output, session) {
     source("02_speedspin_server.R", local=T, encoding="UTF-8") 
     source("03_releasepos_server.R", local=T, encoding="UTF-8") 
     source("04_releasepos3d_server.R", local=T, encoding="UTF-8") 
-    source("05_pfx_server.R", local=T, encoding="UTF-8") 
+    source("05_pfx_server.R", local=T, encoding="UTF-8")  
+    source("06_speed_hist_server.R", local=T, encoding="UTF-8") 
 }
