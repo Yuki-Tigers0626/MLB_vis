@@ -152,4 +152,5 @@ function(input, output, session) {
     source("05_pfx_server.R", local=T, encoding="UTF-8")
     source("06_speed_hist_server.R", local=T, encoding="UTF-8")
     source("07_command_server.R", local=T, encoding="UTF-8")
+    source("08_launch_angle_server.R", local=T, encoding="UTF-8")
 }

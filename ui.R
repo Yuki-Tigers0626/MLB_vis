@@ -49,7 +49,8 @@ sidebar <- dashboardSidebar(
         menuItem("リリースポイント(3D)", tabName="release_pos_3d", icon=icon("hand-lizard")), 
         menuItem("変化量", tabName="pfx", icon=icon("arrows-alt")), 
         menuItem("球速ヒストグラム", tabName="speed_hist", icon=icon("chart-bar")), 
-        menuItem("コマンド可視化", tabName="command_plot", icon=icon("bullseye"))
+        menuItem("コマンド可視化", tabName="command_plot", icon=icon("bullseye")), 
+        menuItem("球種別打球角度・初速度", tabName="launch_angle_plot", icon=icon("chart-line"))
     )
 )
 
@@ -63,7 +64,8 @@ body <- dashboardBody(
         source("04_releasepos3d_ui.R", local=T, encoding="UTF-8")$value, 
         source("05_pfx_ui.R", local=T, encoding="UTF-8")$value, 
         source("06_speed_hist_ui.R", local=T, encoding="UTF-8")$value, 
-        source("07_command_ui.R", local=T, encoding="UTF-8")$value
+        source("07_command_ui.R", local=T, encoding="UTF-8")$value, 
+        source("08_launch_angle_ui.R", local=T, encoding="UTF-8")$value
     )
 )
 
