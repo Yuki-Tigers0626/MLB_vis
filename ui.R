@@ -1,6 +1,6 @@
 # 必要なパッケージの確認・インストール
-RequiredPackages <- c("cowplot", "data.table", "DT", "ggExtra", "mgcv", 
-                      "rgl", "shiny", "shinydashboard", "tidyverse") 
+RequiredPackages <- c("cowplot", "data.table", "DT", "ggExtra", 
+                      "mgcv", "rgl", "shiny", "shinydashboard", "tidyverse") 
 newPackages <- RequiredPackages[!(RequiredPackages%in%installed.packages()[,"Package"])]
 if (length(newPackages)) {
     install.packages(newPackages, repos = "http://cran.us.r-project.org")
@@ -35,6 +35,10 @@ sidebar <- dashboardSidebar(
     selectInput("year", "年度：", 
                 choices = c("2018"=2018, "2019"=2019), selected = 2019), 
     uiOutput("DateRange"), 
+    checkboxGroupInput("outcount", "アウトカウント：", 
+                       choices = c("0out"=0, "1out"=1, "2out"=2), 
+                       selected = c(0, 1, 2), 
+                       inline=T), 
     selectInput("runner", "塁状況：", 
                 choices = c("全状況"=0, 
                             "走者なし"=1, "一塁"=2, "得点圏"=3, 

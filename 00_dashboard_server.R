@@ -11,7 +11,8 @@ datatable <- reactive({
                            Max = as.numeric(sprintf("%.2f", max(effective_speed, na.rm=T))), 
                            Min = as.numeric(sprintf("%.2f", min(effective_speed, na.rm=T))), 
                            `Spin-Rate` = as.numeric(sprintf("%.2f", mean(release_spin_rate, na.rm=T))), 
-                           `Spin-Direction/Tilt` = NA, 
+                           `Spin-Axis` = as.numeric(sprintf("%.2f", mean(spin, na.rm=T))), 
+                           `Spin-Direction/Tilt` = paste0(((540-`Spin-Axis`)%/%30)%%12, ":", formatC(round((((540-`Spin-Axis`)/30)%%1)*60, digits=0), width=2, flag="0")), 
                            `Gyro-Degree` = NA, 
                            `Release-Extension` = as.numeric(sprintf("%.2f", mean(release_extension, na.rm=T))), 
                            `Release-Side` = as.numeric(sprintf("%.2f", mean(release_pos_x, na.rm=T))), 
@@ -30,7 +31,8 @@ datatable <- reactive({
                          Max = as.numeric(sprintf("%.2f", max(effective_speed, na.rm=T))), 
                          Min = as.numeric(sprintf("%.2f", min(effective_speed, na.rm=T))), 
                          `Spin-Rate` = as.numeric(sprintf("%.2f", mean(release_spin_rate, na.rm=T))), 
-                         `Spin-Direction/Tilt` = NA, 
+                         `Spin-Axis` = as.numeric(sprintf("%.2f", mean(spin, na.rm=T))), 
+                         `Spin-Direction/Tilt` = paste0(((540-`Spin-Axis`)%/%30)%%12, ":", formatC(round((((540-`Spin-Axis`)/30)%%1)*60, digits=0), width=2, flag="0")), 
                          `Gyro-Degree` = NA, 
                          `Release-Extension` = as.numeric(sprintf("%.2f", mean(release_extension, na.rm=T))), 
                          `Release-Side` = as.numeric(sprintf("%.2f", mean(release_pos_x, na.rm=T))), 
@@ -49,7 +51,8 @@ datatable <- reactive({
                          Max = as.numeric(sprintf("%.2f", max(effective_speed, na.rm=T))), 
                          Min = as.numeric(sprintf("%.2f", min(effective_speed, na.rm=T))), 
                          `Spin-Rate` = as.numeric(sprintf("%.2f", mean(release_spin_rate, na.rm=T))), 
-                         `Spin-Direction/Tilt` = NA, 
+                         `Spin-Axis` = as.numeric(sprintf("%.2f", mean(spin, na.rm=T))), 
+                         `Spin-Direction/Tilt` = paste0(((540-`Spin-Axis`)%/%30)%%12, ":", formatC(round((((540-`Spin-Axis`)/30)%%1)*60, digits=0), width=2, flag="0")), 
                          `Gyro-Degree` = NA, 
                          `Release-Extension` = as.numeric(sprintf("%.2f", mean(release_extension, na.rm=T))), 
                          `Release-Side` = as.numeric(sprintf("%.2f", mean(release_pos_x, na.rm=T))), 
@@ -62,8 +65,8 @@ datatable <- reactive({
   ) %>% 
     dplyr::rename(batter_stand = stand)
   colnames(DT) <- c("batter_stand", "pitch_name", "Frequency", "Pitch%", "Velocity", "Max", "Min", "Spin-Rate", 
-                    "Spin-Direction/Tilt", "Gyro-Degree", "Release-Extension", "Release-Side", "Release-Height", 
-                    "Horizontal-Mov", "Vertical-Mov")
+                    "Spin-Axis", "Spin-Direction/Tilt", "Gyro-Degree", "Release-Extension", "Release-Side", 
+                    "Release-Height", "Horizontal-Mov", "Vertical-Mov")
   return(DT)
 })
 
@@ -99,19 +102,20 @@ output$difference_LR <- DT::renderDataTable({
                   Max = as.numeric(sprintf("%.2f", Max.x-Max.y)), 
                   Min = as.numeric(sprintf("%.2f", Min.x-Min.y)), 
                   `Spin-Rate` = as.numeric(sprintf("%.2f", `Spin-Rate.x`-`Spin-Rate.y`)), 
-                  `Spin-Direction/Tilt` = as.numeric(sprintf("%.2f", `Spin-Direction/Tilt.x`-`Spin-Direction/Tilt.y`)), 
-                  `Gyro-Degree` = as.numeric(sprintf("%.2f", `Gyro-Degree.x`-`Gyro-Degree.y`)), 
+                  `Spin-Axis` = as.numeric(sprintf("%.2f", `Spin-Axis.x`-`Spin-Axis.y`)), 
+                  `Spin-Direction/Tilt` = NA, 
+                  `Gyro-Degree` = NA, 
                   `Release-Extension` = as.numeric(sprintf("%.2f", `Release-Extension.x`-`Release-Extension.y`)), 
                   `Release-Side` = as.numeric(sprintf("%.2f", `Release-Side.x`-`Release-Side.y`)), 
                   `Release-Height` = as.numeric(sprintf("%.2f", `Release-Height.x`-`Release-Height.y`)), 
                   `Horizontal-Mov` = as.numeric(sprintf("%.2f", `Horizontal-Mov.x`-`Horizontal-Mov.y`)), 
                   `Vertical-Mov` = as.numeric(sprintf("%.2f", `Vertical-Mov.x`-`Vertical-Mov.y`))) %>%
-    dplyr::select(pitch_name, Frequency, `Pitch%`, Velocity, Max, Min, `Spin-Rate`,
+    dplyr::select(pitch_name, Frequency, `Pitch%`, Velocity, Max, Min, `Spin-Rate`, `Spin-Axis`, 
                   `Spin-Direction/Tilt`, `Gyro-Degree`, `Release-Extension`, `Release-Side`, `Release-Height`,
                   `Horizontal-Mov`, `Vertical-Mov`)
-  colnames(DT) <- c("pitch_name", "Frequency", "Pitch%", "Velocity", "Max", "Min", "Spin-Rate",
-                  "Spin-Direction/Tilt", "Gyro-Degree", "Release-Extension", "Release-Side", "Release-Height",
-                  "Horizontal-Mov", "Vertical-Mov")
+  colnames(DT) <- c("pitch_name", "Frequency", "Pitch%", "Velocity", "Max", "Min", "Spin-Rate", 
+                    "Spin-Axis", "Spin-Direction/Tilt", "Gyro-Degree", "Release-Extension", "Release-Side", 
+                    "Release-Height", "Horizontal-Mov", "Vertical-Mov")
   
   return(DT)
 })
