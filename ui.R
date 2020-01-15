@@ -1,5 +1,5 @@
 # 必要なパッケージの確認・インストール
-RequiredPackages <- c("cowplot", "data.table", "DT", "ggExtra", 
+RequiredPackages <- c("cowplot", "data.table", "DT", "ggExtra", "gridExtra", 
                       "mgcv", "rgl", "shiny", "shinydashboard", "tidyverse") 
 newPackages <- RequiredPackages[!(RequiredPackages%in%installed.packages()[,"Package"])]
 if (length(newPackages)) {
@@ -13,6 +13,7 @@ require("cowplot")
 require("data.table")
 require("DT")
 require("ggExtra")
+require("gridExtra")
 require("mgcv")
 require("rgl")
 require("shiny")
@@ -27,13 +28,11 @@ header <- dashboardHeader(
 )
 
 # サイドバー
-# https://fontawesome.com/icons?d=gallery
+# https://fontawesome.com/icons?d=gallery&m=free
 sidebar <- dashboardSidebar(
     uiOutput("selectPlayer"), 
-    selectInput("unit", "長さ単位：", 
-                choices = c("cm", "ft"), selected = "cm"), 
     selectInput("year", "年度：", 
-                choices = c("2018"=2018, "2019"=2019), selected = 2019), 
+                choices = c("2017"=2017, "2018"=2018, "2019"=2019), selected = 2019), 
     uiOutput("DateRange"), 
     checkboxGroupInput("outcount", "アウトカウント：", 
                        choices = c("0out"=0, "1out"=1, "2out"=2), 
@@ -54,8 +53,15 @@ sidebar <- dashboardSidebar(
         menuItem("変化量", tabName="pfx", icon=icon("arrows-alt")), 
         menuItem("球速ヒストグラム", tabName="speed_hist", icon=icon("chart-bar")), 
         menuItem("コマンド可視化", tabName="command_plot", icon=icon("bullseye")), 
-        menuItem("球種別打球角度・初速度", tabName="launch_angle_plot", icon=icon("chart-line"))
-    )
+        menuItem("球種別打球角度・初速度", tabName="launch_angle_plot", icon=icon("chart-line")), 
+        menuItem("同球種内クラスタリング", tabName="pitched_ball_clst", icon=icon("share-alt-square"))
+    ), 
+    selectInput("pitch_name_select", "球種名：", 
+                choices = c("オリジナル"=2, "Statcast"=1), selected = 2), 
+    selectInput("view", "視点：", 
+                choices = c("球審"=1, "投手"=-1), selected = 1), 
+    selectInput("unit", "長さ単位：", 
+                choices = c("cm", "ft"), selected = "cm")
 )
 
 # ボディ
@@ -69,7 +75,8 @@ body <- dashboardBody(
         source("05_pfx_ui.R", local=T, encoding="UTF-8")$value, 
         source("06_speed_hist_ui.R", local=T, encoding="UTF-8")$value, 
         source("07_command_ui.R", local=T, encoding="UTF-8")$value, 
-        source("08_launch_angle_ui.R", local=T, encoding="UTF-8")$value
+        source("08_launch_angle_ui.R", local=T, encoding="UTF-8")$value, 
+        source("09_pitched_ball_clst_ui.R", local=T, encoding="UTF-8")$value
     )
 )
 

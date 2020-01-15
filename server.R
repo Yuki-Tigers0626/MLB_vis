@@ -5,31 +5,40 @@ function(input, output, session) {
     
     # データベース
     DataBase <- reactive({
-        read_rds("Data/StatcastData.rds")
+        read_rds("Data/StatcastData.rds") %>% 
+            dplyr::rename(pitch_name1=pitch_name)
     })
     
     Database <- reactive({
-        DataBase() %>% 
+        db <- DataBase() %>% 
             dplyr::filter(game_year==input$year) %>%
-            dplyr::mutate(release_pos_x = release_pos_x*unit_convert(input$unit), 
+            dplyr::mutate(release_pos_x = release_pos_x*unit_convert(input$unit)*as.integer(input$view), 
                           release_pos_z = release_pos_z*unit_convert(input$unit), 
-                          pfx_x = pfx_x*unit_convert(input$unit), 
+                          pfx_x = pfx_x*unit_convert(input$unit)*as.integer(input$view), 
                           pfx_z = pfx_z*unit_convert(input$unit), 
-                          plate_x = plate_x*unit_convert(input$unit), 
+                          plate_x = plate_x*unit_convert(input$unit)*as.integer(input$view), 
                           plate_z = plate_z*unit_convert(input$unit), 
                           hc_x = hc_x*unit_convert(input$unit), 
                           hc_y = hc_y*unit_convert(input$unit), 
-                          vx0 = vx0*unit_convert(input$unit), 
+                          vx0 = vx0*unit_convert(input$unit)*as.integer(input$view), 
                           vy0 = vy0*unit_convert(input$unit), 
                           vz0 = vz0*unit_convert(input$unit), 
-                          ax = ax*unit_convert(input$unit), 
+                          ax = ax*unit_convert(input$unit)*as.integer(input$view), 
                           ay = ay*unit_convert(input$unit), 
                           az = az*unit_convert(input$unit), 
-                          sz_top = sz_top*unit_convert(input$unit), 
+                          sz_top = sz_top*unit_convert(input$unit)*as.integer(input$view), 
                           sz_bot = sz_bot*unit_convert(input$unit), 
                           hit_distance_sc = hit_distance_sc*unit_convert(input$unit), 
                           release_extension = release_extension*unit_convert(input$unit), 
-                          release_pos_y = release_pos_y*unit_convert(input$unit))
+                          release_pos_y = release_pos_y*unit_convert(input$unit), 
+                          spin = spin*as.integer(input$view))
+        if (input$pitch_name_select==2) {
+            db <- db %>% 
+                dplyr::mutate(pitch_name = pitch_name2)
+        } else if (input$pitch_name_select==1) {
+            db <- db %>% 
+                dplyr::mutate(pitch_name = pitch_name1)
+        }
     })
     
     PlayerNames <- reactive({
@@ -154,4 +163,5 @@ function(input, output, session) {
     source("06_speed_hist_server.R", local=T, encoding="UTF-8")
     source("07_command_server.R", local=T, encoding="UTF-8")
     source("08_launch_angle_server.R", local=T, encoding="UTF-8")
+    source("09_pitched_ball_clst_server.R", local=T, encoding="UTF-8")
 }

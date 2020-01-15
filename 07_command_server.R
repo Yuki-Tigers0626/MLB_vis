@@ -1,5 +1,5 @@
-output$select_pitch_name <- renderUI({
-  selectInput(inputId = "pitch_name", 
+output$select_pitch_name3 <- renderUI({
+  selectInput(inputId = "pitch_name3", 
               label = "球種選択: ", 
               choices = dplyr::bind_rows(data.frame(pitch_name="全球種"), 
                                          database() %>% 
@@ -8,11 +8,11 @@ output$select_pitch_name <- renderUI({
 })
 
 database2 <- reactive({
-  if (input$pitch_name=="全球種") {
+  if (input$pitch_name3=="全球種") {
     db <- database()
   } else {
     db <- database() %>% 
-      dplyr::filter(pitch_name==input$pitch_name)
+      dplyr::filter(pitch_name==input$pitch_name3)
   }
   db2 <- db %>% 
     dplyr::filter(description%in%c("ball","called_strike"), plate_z>0) %>% 
@@ -79,7 +79,7 @@ output$cs_prob_Both <- renderPlot({
     geom_contour(data = cs_prob_db_Both(), 
                  mapping = aes(x=plate_x, y=scaled_plate_z, z=prob), 
                  breaks=c(.3), size=1, linetype="dotted") + 
-    labs(title=paste0(input$Name, " ", input$year, "年度 ", input$pitch_name, "\n 通算ストライク判定確率密度"), 
+    labs(title=paste0(input$Name, " ", input$year, "年度 ", input$pitch_name3, "\n 通算ストライク判定確率密度"), 
          subtitle="実線：80%, 破線：50%, 点線：30%", x="横", y="高さ") + 
     xlim(-2, 2) + ylim(-2, 2) + 
     theme_cowplot(16)
@@ -99,7 +99,7 @@ output$cs_prob_Left <- renderPlot({
     geom_contour(data = cs_prob_db_Left(), 
                  mapping = aes(x=plate_x, y=scaled_plate_z, z=prob), 
                  breaks=c(.3), size=1, linetype="dotted") + 
-    labs(title=paste0(input$Name, " ", input$year, "年度 ", input$pitch_name, "\n 対左ストライク判定確率密度"), 
+    labs(title=paste0(input$Name, " ", input$year, "年度 ", input$pitch_name3, "\n 対左ストライク判定確率密度"), 
          subtitle="実線：80%, 破線：50%, 点線：30%", x="横", y="高さ") + 
     xlim(-2, 2) + ylim(-2, 2) + 
     theme_cowplot(16)
@@ -119,7 +119,7 @@ output$cs_prob_Right <- renderPlot({
     geom_contour(data = cs_prob_db_Right(), 
                  mapping = aes(x=plate_x, y=scaled_plate_z, z=prob), 
                  breaks=c(.3), size=1, linetype="dotted") + 
-    labs(title=paste0(input$Name, " ", input$year, "年度 ", input$pitch_name, "\n 対右ストライク判定確率密度"), 
+    labs(title=paste0(input$Name, " ", input$year, "年度 ", input$pitch_name3, "\n 対右ストライク判定確率密度"), 
          subtitle="実線：80%, 破線：50%, 点線：30%", x="横", y="高さ") + 
     xlim(-2, 2) + ylim(-2, 2) + 
     theme_cowplot(16)
@@ -133,7 +133,7 @@ output$cs_plot_Both <- renderPlot({
     geom_point(data = database2(), 
                mapping = aes(x=plate_x, y=scaled_plate_z, color=description), 
                size=2, alpha=.6) + 
-    labs(title=paste0(input$Name, " ", input$year, "年度 ", input$pitch_name, "\n 通算投球判定"), x="横", y="高さ") + 
+    labs(title=paste0(input$Name, " ", input$year, "年度 ", input$pitch_name3, "\n 通算投球判定"), x="横", y="高さ") + 
     xlim(-2, 2) + ylim(-2, 2) + 
     theme_cowplot(16)
 })
@@ -147,7 +147,7 @@ output$cs_plot_Left <- renderPlot({
                  dplyr::filter(stand=="L"), 
                mapping = aes(x=plate_x, y=scaled_plate_z, color=description), 
                size=2, alpha=.6) + 
-    labs(title=paste0(input$Name, " ", input$year, "年度 ", input$pitch_name, "\n 対左投球判定"), x="横", y="高さ") + 
+    labs(title=paste0(input$Name, " ", input$year, "年度 ", input$pitch_name3, "\n 対左投球判定"), x="横", y="高さ") + 
     xlim(-2, 2) + ylim(-2, 2) + 
     theme_cowplot(16)
 })
@@ -161,7 +161,7 @@ output$cs_plot_Right <- renderPlot({
                  dplyr::filter(stand=="R"), 
                mapping = aes(x=plate_x, y=scaled_plate_z, color=description), 
                size=2, alpha=.6) + 
-    labs(title=paste0(input$Name, " ", input$year, "年度 ", input$pitch_name, "\n 対右投球判定"), x="横", y="高さ") + 
+    labs(title=paste0(input$Name, " ", input$year, "年度 ", input$pitch_name3, "\n 対右投球判定"), x="横", y="高さ") + 
     xlim(-2, 2) + ylim(-2, 2) + 
     theme_cowplot(16)
 })

@@ -2,7 +2,7 @@ tabItem(
   tabName = "command_plot", 
   fluidRow(
     h5("計算に時間がかかります"), 
-    uiOutput("select_pitch_name"), 
+    uiOutput("select_pitch_name3"), 
     column(width = 4, 
            plotOutput("cs_prob_Both")
     ), 
