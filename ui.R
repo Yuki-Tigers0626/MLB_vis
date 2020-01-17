@@ -1,5 +1,5 @@
 # 必要なパッケージの確認・インストール
-RequiredPackages <- c("cowplot", "data.table", "DT", "ggExtra", "gridExtra", 
+RequiredPackages <- c("cowplot", "data.table", "DT", "emojifont", "extrafont", "ggExtra", "gridExtra", 
                       "mgcv", "rgl", "shiny", "shinydashboard", "tidyverse") 
 newPackages <- RequiredPackages[!(RequiredPackages%in%installed.packages()[,"Package"])]
 if (length(newPackages)) {
@@ -12,6 +12,8 @@ if (length(newPackages)) {
 require("cowplot")
 require("data.table")
 require("DT")
+require("emojifont")
+require("extrafont")
 require("ggExtra")
 require("gridExtra")
 require("mgcv")
@@ -32,7 +34,7 @@ header <- dashboardHeader(
 sidebar <- dashboardSidebar(
     uiOutput("selectPlayer"), 
     selectInput("year", "年度：", 
-                choices = c("2017"=2017, "2018"=2018, "2019"=2019), selected = 2019), 
+                choices = c("2015"=2015, "2016"=2016, "2017"=2017, "2018"=2018, "2019"=2019), selected = 2019), 
     uiOutput("DateRange"), 
     checkboxGroupInput("outcount", "アウトカウント：", 
                        choices = c("0out"=0, "1out"=1, "2out"=2), 
