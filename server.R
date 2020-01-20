@@ -12,7 +12,8 @@ function(input, output, session) {
     Database <- reactive({
         db <- DataBase() %>% 
             dplyr::filter(game_year==input$year) %>%
-            dplyr::mutate(release_pos_x = release_pos_x*unit_convert(input$unit)*as.integer(input$view), 
+            dplyr::mutate(description = as.character(description), 
+                          release_pos_x = release_pos_x*unit_convert(input$unit)*as.integer(input$view), 
                           release_pos_z = release_pos_z*unit_convert(input$unit), 
                           pfx_x = pfx_x*unit_convert(input$unit)*as.integer(input$view), 
                           pfx_z = pfx_z*unit_convert(input$unit), 
@@ -31,7 +32,8 @@ function(input, output, session) {
                           hit_distance_sc = hit_distance_sc*unit_convert(input$unit), 
                           release_extension = release_extension*unit_convert(input$unit), 
                           release_pos_y = release_pos_y*unit_convert(input$unit), 
-                          spin = spin*as.integer(input$view))
+                          spin = spin*as.integer(input$view), 
+                          `Active-Spin` = as.numeric(`Active-Spin`))
         if (input$pitch_name_select==2) {
             db <- db %>% 
                 dplyr::mutate(pitch_name = pitch_name2)
