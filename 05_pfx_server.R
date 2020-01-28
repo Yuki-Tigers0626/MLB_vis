@@ -3,8 +3,8 @@ output$pfx_Both_plot <- renderPlot({
     geom_vline(xintercept=0) + geom_hline(yintercept=0) + 
     labs(title=paste0(as.character(player_Name()), " ", input$year, "年度 通算変化量"), 
          x=paste0("横変化量 (", input$unit, ")"), y=paste0("縦変化量 (", input$unit, ")")) + 
-    xlim(min(Database2()$pfx_x)*1.1, max(Database2()$pfx_x)*1.1) + 
-    ylim(min(Database2()$pfx_z)*1.1, max(Database2()$pfx_z)*1.1) + 
+    xlim(-75, 75) + 
+    ylim(-75, 75) + 
     theme_cowplot(16)
   
   if (input$plot_add_pfx==1) {
@@ -41,8 +41,8 @@ output$pfx_L_plot <- renderPlot({
     geom_vline(xintercept=0) + geom_hline(yintercept=0) + 
     labs(title=paste0(as.character(player_Name()), " ", input$year, "年度 対左変化量"), 
          x=paste0("横変化量 (", input$unit, ")"), y=paste0("縦変化量 (", input$unit, ")")) + 
-    xlim(min(Database2()$pfx_x)*1.1, max(Database2()$pfx_x)*1.1) + 
-    ylim(min(Database2()$pfx_z)*1.1, max(Database2()$pfx_z)*1.1) + 
+    xlim(-75, 75) + 
+    ylim(-75, 75) + 
     theme_cowplot(16)
   
   if (input$plot_add_pfx==1) {
@@ -82,8 +82,8 @@ output$pfx_R_plot <- renderPlot({
     geom_vline(xintercept=0) + geom_hline(yintercept=0) + 
     labs(title=paste0(as.character(player_Name()), " ", input$year, "年度 対右変化量"), 
          x=paste0("横変化量 (", input$unit, ")"), y=paste0("縦変化量 (", input$unit, ")")) + 
-    xlim(min(Database2()$pfx_x)*1.1, max(Database2()$pfx_x)*1.1) + 
-    ylim(min(Database2()$pfx_z)*1.1, max(Database2()$pfx_z)*1.1) + 
+    xlim(-75, 75) + 
+    ylim(-75, 75) + 
     theme_cowplot(16)
   
   if (input$plot_add_pfx==1) {
