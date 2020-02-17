@@ -1,3 +1,5 @@
+
+
 # サーバ
 function(input, output, session) {
     # 作業用関数
@@ -9,9 +11,39 @@ function(input, output, session) {
             dplyr::rename(pitch_name1=pitch_name)
     })
     
+    PlayerNames <- reactive({
+        DataBase() %>% 
+            dplyr::select(pitcher) %>% 
+            dplyr::rename(key_mlbam = pitcher) %>% 
+            dplyr::distinct(key_mlbam) %>% 
+            dplyr::left_join(read_rds("Data/PlayerNames.rds"), 
+                             by = "key_mlbam") %>% 
+            dplyr::arrange(Name)
+    })
+    
+    output$selectPlayer <- renderUI({
+        selectInput(inputId = "Name", 
+                    label = "投手選択: ", 
+                    choices = PlayerNames() %>% 
+                        dplyr::select(Name), 
+                    selected = "Yu Darvish")
+    })
+    
+    player_Name <- reactive({
+        PlayerNames() %>% 
+            dplyr::filter(Name==input$Name) %>% 
+            dplyr::select(Name) %>% as.character()
+    })
+    
+    player_Id <- reactive({
+        PlayerNames() %>% 
+            dplyr::filter(Name==input$Name) %>% 
+            dplyr::select(key_mlbam) %>% as.integer()
+    })
+    
     Database <- reactive({
         db <- DataBase() %>% 
-            dplyr::filter(game_year==input$year) %>%
+            dplyr::filter(pitcher==player_Id()) %>%
             dplyr::mutate(description = as.character(description), 
                           release_pos_x = release_pos_x*unit_convert(input$unit)*as.integer(input$view), 
                           release_pos_z = release_pos_z*unit_convert(input$unit), 
@@ -43,40 +75,18 @@ function(input, output, session) {
         }
     })
     
-    PlayerNames <- reactive({
-        Database() %>% 
-            dplyr::select(pitcher) %>% 
-            dplyr::rename(key_mlbam = pitcher) %>% 
-            dplyr::distinct(key_mlbam) %>% 
-            dplyr::left_join(read_rds("Data/PlayerNames.rds"), 
-                             by = "key_mlbam") %>% 
-            dplyr::arrange(Name)
-    })
-    
-    output$selectPlayer <- renderUI({
-        selectInput(inputId = "Name", 
-                    label = "投手選択: ", 
-                    choices = PlayerNames() %>% 
-                        # dplyr::filter(key_mlbam%in%c(506433, 547888)) %>%
-                        dplyr::select(Name), 
-                    selected = "Yu Darvish")
-    })
-    
-    player_Name <- reactive({
-        PlayerNames() %>% 
-            dplyr::filter(Name==input$Name) %>% 
-            dplyr::select(Name) %>% as.character()
-    })
-    
-    player_Id <- reactive({
-        PlayerNames() %>% 
-            dplyr::filter(Name==input$Name) %>% 
-            dplyr::select(key_mlbam) %>% as.integer()
+    output$selectYear <- renderUI({
+        selectInput(inputId = "Year", 
+                    label = "年度選択: ", 
+                    choices = Database() %>% 
+                        dplyr::select(game_year) %>% 
+                        dplyr::distinct() %>% 
+                        dplyr::arrange(desc(game_year)))
     })
     
     Database2 <- reactive({
         Database() %>% 
-            dplyr::filter(pitcher==player_Id(), 
+            dplyr::filter(game_year==as.integer(input$Year), 
                           pitch_name!="")
     })
     
