@@ -116,8 +116,14 @@ function(input, output, session) {
     })
     
     database <- reactive({
-        db <- Database2() %>% 
-            dplyr::filter(outs_when_up%in%input$outcount) %>% 
+        db <- Database2()
+        
+        if (input$Year>=2015) {
+            db <- db %>% 
+                dplyr::filter(outs_when_up%in%input$outcount)
+        }
+        
+        db <- db %>% 
             dplyr::mutate(tmp = as.integer(game_date)) %>% 
             dplyr::filter(tmp>=as.integer(input$date_range[1]), 
                           tmp<=as.integer(input$date_range[2])) %>% 
