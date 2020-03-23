@@ -182,4 +182,5 @@ function(input, output, session) {
     source("07_command_server.R", local=T, encoding="UTF-8")
     source("08_launch_angle_server.R", local=T, encoding="UTF-8")
     source("09_pitched_ball_clst_server.R", local=T, encoding="UTF-8")
+    source("10_pfx_year_by_year_server.R", local=T, encoding="UTF-8")
 }

@@ -55,7 +55,8 @@ sidebar <- dashboardSidebar(
         menuItem("球速ヒストグラム", tabName="speed_hist", icon=icon("chart-bar")), 
         menuItem("コマンド可視化", tabName="command_plot", icon=icon("bullseye")), 
         menuItem("球種別打球角度・初速度", tabName="launch_angle_plot", icon=icon("chart-line")), 
-        menuItem("同球種内クラスタリング", tabName="pitched_ball_clst", icon=icon("share-alt-square"))
+        menuItem("同球種内クラスタリング", tabName="pitched_ball_clst", icon=icon("share-alt-square")), 
+        menuItem("年度別変化量", tabName="year_by_year_pfx", icon=icon("share-alt-square"))
     ), 
     selectInput("pitch_name_select", "球種名：", 
                 choices = c("オリジナル"=2, "Statcast"=1), selected = 2), 
@@ -77,7 +78,8 @@ body <- dashboardBody(
         source("06_speed_hist_ui.R", local=T, encoding="UTF-8")$value, 
         source("07_command_ui.R", local=T, encoding="UTF-8")$value, 
         source("08_launch_angle_ui.R", local=T, encoding="UTF-8")$value, 
-        source("09_pitched_ball_clst_ui.R", local=T, encoding="UTF-8")$value
+        source("09_pitched_ball_clst_ui.R", local=T, encoding="UTF-8")$value, 
+        source("10_pfx_year_by_year_ui.R", local=T, encoding="UTF-8")$value
     )
 )
 
