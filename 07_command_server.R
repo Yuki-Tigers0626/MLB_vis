@@ -7,7 +7,7 @@ output$select_pitch_name3 <- renderUI({
                                            dplyr::distinct(pitch_name)))
 })
 
-database2 <- reactive({
+database07 <- reactive({
   if (input$pitch_name3=="全球種") {
     db <- database()
   } else {
@@ -30,7 +30,7 @@ database2 <- reactive({
 cs_prob_db_Both <- reactive({
   data.frame(expand.grid(plate_x = round(seq(-2, 2, length=401), 2), 
                          scaled_plate_z = round(seq(-2, 2, length=401), 2))) %>% 
-    dplyr::mutate(lp = predict(gam(data=database2(), 
+    dplyr::mutate(lp = predict(gam(data=database07(), 
                                    formula=cs ~ s(plate_x, scaled_plate_z), 
                                    family=binomial(link="probit")), 
                                expand.grid(plate_x = round(seq(-2, 2, length=401), 2), 
@@ -42,7 +42,7 @@ cs_prob_db_Both <- reactive({
 cs_prob_db_Left <- reactive({
   data.frame(expand.grid(plate_x = round(seq(-2, 2, length=401), 2), 
                          scaled_plate_z = round(seq(-2, 2, length=401), 2))) %>% 
-    dplyr::mutate(lp = predict(gam(data=database2() %>% 
+    dplyr::mutate(lp = predict(gam(data=database07() %>% 
                                      filter(stand=="L"), 
                                    formula=cs ~ s(plate_x, scaled_plate_z), 
                                    family=binomial(link="probit")), 
@@ -55,7 +55,7 @@ cs_prob_db_Left <- reactive({
 cs_prob_db_Right <- reactive({
   data.frame(expand.grid(plate_x = round(seq(-2, 2, length=401), 2), 
                          scaled_plate_z = round(seq(-2, 2, length=401), 2))) %>% 
-    dplyr::mutate(lp = predict(gam(data=database2() %>% 
+    dplyr::mutate(lp = predict(gam(data=database07() %>% 
                                      filter(stand=="R"), 
                                    formula=cs ~ s(plate_x, scaled_plate_z), 
                                    family=binomial(link="probit")), 
@@ -130,7 +130,7 @@ output$cs_plot_Both <- renderPlot({
     geom_segment(data = data.table(x=c(-0.83,-0.83,-0.83,0.83),xend=c(0.83,0.83,-0.83,0.83),y=c(-1,1,-1,-1),yend=c(-1,1,1,1)), 
                  mapping = aes(x=x, y=y, xend=xend, yend=yend), size=1, alpha=.8) + 
     geom_vline(xintercept=0) + geom_hline(yintercept=0) + geom_hline(yintercept=-2) + 
-    geom_point(data = database2(), 
+    geom_point(data = database07(), 
                mapping = aes(x=plate_x, y=scaled_plate_z, color=description), 
                size=2, alpha=.6) + 
     labs(title=paste0(input$Name, " ", input$year, "年度 ", input$pitch_name3, "\n 通算投球判定"), x="横", y="高さ") + 
@@ -143,7 +143,7 @@ output$cs_plot_Left <- renderPlot({
     geom_segment(data = data.table(x=c(-0.83,-0.83,-0.83,0.83),xend=c(0.83,0.83,-0.83,0.83),y=c(-1,1,-1,-1),yend=c(-1,1,1,1)), 
                  mapping = aes(x=x, y=y, xend=xend, yend=yend), size=1, alpha=.8) + 
     geom_vline(xintercept=0) + geom_hline(yintercept=0) + geom_hline(yintercept=-2) + 
-    geom_point(data = database2() %>% 
+    geom_point(data = database07() %>% 
                  dplyr::filter(stand=="L"), 
                mapping = aes(x=plate_x, y=scaled_plate_z, color=description), 
                size=2, alpha=.6) + 
@@ -157,7 +157,7 @@ output$cs_plot_Right <- renderPlot({
     geom_segment(data = data.table(x=c(-0.83,-0.83,-0.83,0.83),xend=c(0.83,0.83,-0.83,0.83),y=c(-1,1,-1,-1),yend=c(-1,1,1,1)), 
                  mapping = aes(x=x, y=y, xend=xend, yend=yend), size=1, alpha=.8) + 
     geom_vline(xintercept=0) + geom_hline(yintercept=0) + geom_hline(yintercept=-2) + 
-    geom_point(data = database2() %>% 
+    geom_point(data = database07() %>% 
                  dplyr::filter(stand=="R"), 
                mapping = aes(x=plate_x, y=scaled_plate_z, color=description), 
                size=2, alpha=.6) + 
