@@ -7,7 +7,8 @@ function(input, output, session) {
     
     # データベース
     DataBase <- reactive({
-        read_rds("Data/StatcastData.rds") %>% 
+        dplyr::bind_rows(read_rds("Data/StatcastData1.rds"), 
+                         read_rds("Data/StatcastData2.rds")) %>% 
             dplyr::rename(pitch_name1=pitch_name)
     })
     
