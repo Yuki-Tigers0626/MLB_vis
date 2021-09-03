@@ -30,6 +30,17 @@ function(input, output, session) {
                     selected = "Yu Darvish")
     })
     
+    # output$selectPlayer2 <- renderUI({
+    #     radioButtons(inputId = "Name2",
+    #                  label = "投手選択",
+    #                  choices = PlayerNames() %>% 
+    #                      dplyr::select(Name) %>% 
+    #                      dplyr::arrange(Name),
+    #                  selected = input$selectPlayer, 
+    #                  inline = T
+    #     )
+    # })
+    
     player_Name <- reactive({
         PlayerNames() %>% 
             dplyr::filter(Name==input$Name) %>% 
