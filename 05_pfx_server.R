@@ -1,7 +1,7 @@
 output$pfx_Both_plot <- renderPlot({
   g <- ggplot() + 
     geom_vline(xintercept=0) + geom_hline(yintercept=0) + 
-    labs(title=paste0(as.character(player_Name()), " ", input$year, "年度 通算変化量"), 
+    labs(title=paste0(as.character(player_Name()), " ", input$Year, "年度 通算変化量"), 
          x=paste0("横変化量 (", input$unit, ")"), y=paste0("縦変化量 (", input$unit, ")")) + 
     xlim(-75, 75) + 
     ylim(-75, 75) + 
@@ -40,7 +40,7 @@ output$pfx_Both_plot <- renderPlot({
 output$pfx_L_plot <- renderPlot({
   g <- ggplot() + 
     geom_vline(xintercept=0) + geom_hline(yintercept=0) + 
-    labs(title=paste0(as.character(player_Name()), " ", input$year, "年度 対左変化量"), 
+    labs(title=paste0(as.character(player_Name()), " ", input$Year, "年度 対左変化量"), 
          x=paste0("横変化量 (", input$unit, ")"), y=paste0("縦変化量 (", input$unit, ")")) + 
     xlim(-75, 75) + 
     ylim(-75, 75) + 
@@ -82,7 +82,7 @@ output$pfx_L_plot <- renderPlot({
 output$pfx_R_plot <- renderPlot({
   g <- ggplot() + 
     geom_vline(xintercept=0) + geom_hline(yintercept=0) + 
-    labs(title=paste0(as.character(player_Name()), " ", input$year, "年度 対右変化量"), 
+    labs(title=paste0(as.character(player_Name()), " ", input$Year, "年度 対右変化量"), 
          x=paste0("横変化量 (", input$unit, ")"), y=paste0("縦変化量 (", input$unit, ")")) + 
     xlim(-75, 75) + 
     ylim(-75, 75) + 
@@ -124,7 +124,7 @@ output$pfx_R_plot <- renderPlot({
 output$pfx_Both_plot_top <- renderPlot({
   g <- ggplot() + 
     geom_vline(xintercept=0) + geom_hline(yintercept=0) + 
-    labs(title=paste0(as.character(player_Name()), " ", input$year, "年度 通算変化量"), 
+    labs(title=paste0(as.character(player_Name()), " ", input$Year, "年度 通算変化量"), 
          x=paste0("横変化量 (", input$unit, ")"), y=paste0("縦変化量 (", input$unit, ")")) + 
     xlim(-75, 75) + 
     ylim(-75, 75) + 
@@ -166,7 +166,7 @@ output$pfx_Both_plot_top <- renderPlot({
 output$pfx_L_plot_top <- renderPlot({
   g <- ggplot() + 
     geom_vline(xintercept=0) + geom_hline(yintercept=0) + 
-    labs(title=paste0(as.character(player_Name()), " ", input$year, "年度 対左変化量"), 
+    labs(title=paste0(as.character(player_Name()), " ", input$Year, "年度 対左変化量"), 
          x=paste0("横変化量 (", input$unit, ")"), y=paste0("縦変化量 (", input$unit, ")")) + 
     xlim(-75, 75) + 
     ylim(-75, 75) + 
@@ -208,7 +208,7 @@ output$pfx_L_plot_top <- renderPlot({
 output$pfx_R_plot_top <- renderPlot({
   g <- ggplot() + 
     geom_vline(xintercept=0) + geom_hline(yintercept=0) + 
-    labs(title=paste0(as.character(player_Name()), " ", input$year, "年度 対右変化量"), 
+    labs(title=paste0(as.character(player_Name()), " ", input$Year, "年度 対右変化量"), 
          x=paste0("横変化量 (", input$unit, ")"), y=paste0("縦変化量 (", input$unit, ")")) + 
     xlim(-75, 75) + 
     ylim(-75, 75) + 
@@ -250,7 +250,7 @@ output$pfx_R_plot_top <- renderPlot({
 output$pfx_Both_plot_bot <- renderPlot({
   g <- ggplot() + 
     geom_vline(xintercept=0) + geom_hline(yintercept=0) + 
-    labs(title=paste0(as.character(player_Name()), " ", input$year, "年度 通算変化量"), 
+    labs(title=paste0(as.character(player_Name()), " ", input$Year, "年度 通算変化量"), 
          x=paste0("横変化量 (", input$unit, ")"), y=paste0("縦変化量 (", input$unit, ")")) + 
     xlim(-75, 75) + 
     ylim(-75, 75) + 
@@ -292,7 +292,7 @@ output$pfx_Both_plot_bot <- renderPlot({
 output$pfx_L_plot_bot <- renderPlot({
   g <- ggplot() + 
     geom_vline(xintercept=0) + geom_hline(yintercept=0) + 
-    labs(title=paste0(as.character(player_Name()), " ", input$year, "年度 対左変化量"), 
+    labs(title=paste0(as.character(player_Name()), " ", input$Year, "年度 対左変化量"), 
          x=paste0("横変化量 (", input$unit, ")"), y=paste0("縦変化量 (", input$unit, ")")) + 
     xlim(-75, 75) + 
     ylim(-75, 75) + 
@@ -334,7 +334,7 @@ output$pfx_L_plot_bot <- renderPlot({
 output$pfx_R_plot_bot <- renderPlot({
   g <- ggplot() + 
     geom_vline(xintercept=0) + geom_hline(yintercept=0) + 
-    labs(title=paste0(as.character(player_Name()), " ", input$year, "年度 対右変化量"), 
+    labs(title=paste0(as.character(player_Name()), " ", input$Year, "年度 対右変化量"), 
          x=paste0("横変化量 (", input$unit, ")"), y=paste0("縦変化量 (", input$unit, ")")) + 
     xlim(-75, 75) + 
     ylim(-75, 75) + 
